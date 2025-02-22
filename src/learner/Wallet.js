@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
+import { FaWallet, FaEthereum, FaArrowRight } from 'react-icons/fa';
 
 import Navbar1 from "../Navbar1";
 import { FaUser, FaMoneyBillWave } from 'react-icons/fa';
@@ -418,6 +419,7 @@ const Wallet = () => {
     }
   };
   const homeStyle = {
+    width: '100%', // Ensure the width is 100%
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
@@ -438,6 +440,7 @@ const Wallet = () => {
     alignItems: 'flex-start',
     overflow: 'hidden', // Hide overflow content
     backgroundColor: '#F3F6FC',
+    justifyContent: 'space-between',
   };
 
   const headingStyle = {
@@ -456,92 +459,124 @@ const Wallet = () => {
 
   return (
     <>
-    <div style={styles.container}>
-    <Navbar1 />
-     
-      <div style={homeStyle}>
-      <div style={contentStyle}>
-          <div style={headingStyle}>
-            <div style={{
-              fontSize: 22,
-              fontFamily: 'DMM',
-              fontWeight: 500,
-              marginLeft:30,
-            }}>Transfer EDU initialSupply Tokens✨</div>
-          </div>
-          {!walletConnected ? (
-        <button onClick={connectWallet} style={{ backgroundColor: '#f3831e',
-          color: 'white',
-          padding: '10px 20px',
-          borderRadius: '5px',
-          cursor: 'pointer',
-          marginBottom: '20px',
-          fontFamily: 'DMM',
-          fontWeight: 500,
-          fontSize: 25,
-          borderWidth: '2px',
-          borderColor: 'black',alignSelf:'center'}} >
-          Connect Wallet
-        </button>
-      ) : (
-        <div style={{alignSelf:'center',fontFamily:'DMM'}}>
-          <p>Connected Address: {address}</p>
-          <button onClick={checkBalance} style={styles.button}>
-            Check Balance
-          </button>
-          {balance && <span style={{backgroundColor:'#fff4e8',borderRadius:"15px",marginLeft:'20px',padding:'10px 10px'}}>Balance: {balance} initialSupply tokens</span>}
-          <div style={styles.inputContainer}>
-            <input
-              type="text"
-              placeholder="Recipient Address"
-              value={recipientAddress}
-              onChange={(e) => setRecipientAddress(e.target.value)}
-              style={styles.input}
-            />
-            <input
-              type="number"
-              placeholder="Amount of EDU tokens"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              style={styles.input}
-            />
-            <button onClick={transferTokens} style={styles.button}>
-              Do Payment
-            </button>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+        <Navbar1 />
+        <div style={homeStyle}>
+          <div style={contentStyle}>
+            <div style={headingStyle}>
+              <div style={{
+                fontSize: 22,
+                fontFamily: 'DMM',
+                fontWeight: 500,
+                marginLeft: 30,
+              }}>Transfer EDU initialSupply Tokens✨</div>
+            </div>
+            {!walletConnected ? (
+              <button onClick={connectWallet} style={{
+                backgroundColor: '#f3831e',
+                color: 'white',
+                padding: '10px 20px',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                marginBottom: '20px',
+                fontFamily: 'DMM',
+                fontWeight: 500,
+                fontSize: 25,
+                borderWidth: '2px',
+                borderColor: 'black',
+                alignSelf: 'center'
+              }} >
+                Connect Wallet
+              </button>
+            ) : (
+              <div style={{ alignSelf: 'center', fontFamily: 'DMM', width: '100%' }}>
+                <p>Connected Address: {address}</p>
+                <button onClick={checkBalance} style={{
+                  padding: '10px 20px',
+                  backgroundColor: '#4CAF50',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  fontFamily: 'DMM'
+                }}>
+                  Check Balance
+                </button>
+                {balance && <span style={{
+                  backgroundColor: '#fff4e8',
+                  borderRadius: "15px",
+                  marginLeft: '20px',
+                  padding: '10px 10px'
+                }}>Balance: {balance} initialSupply tokens</span>}
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
+                  marginTop: '20px',backgroundColor:'transparent',margin:'20px',padding:'20px',borderRadius:'10px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #ccc', borderRadius: '5px',padding:"5px" }}>
+                    <FaWallet style={{ margin: '0 10px', color: '#ccc',fontSize:'2rem' }} />
+                    <input
+                      type="text"
+                      placeholder="Recipient Address"
+                      value={recipientAddress}
+                      onChange={(e) => setRecipientAddress(e.target.value)}
+                      style={{
+                        padding: '10px',
+                        borderRadius: '5px',
+                        border: 'none',
+                        flex: 1,
+                        fontFamily: 'DMM',
+                         fontSize:'1.5rem'
+                      }}
+                    />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #ccc', borderRadius: '5px',padding:"5px" }}>
+                    <FaEthereum style={{ margin: '0 10px', color: '#ccc',fontSize:'2rem'}} />
+                    <input
+                      type="number"
+                      placeholder="Amount of EDU tokens"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      style={{
+                        padding: '10px',
+                        borderRadius: '5px',
+                        border: 'none',
+                        flex: 1,
+                        fontFamily: 'DMM',
+                        fontSize:'1.5rem'
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            {walletConnected && (
+              <button onClick={transferTokens} style={{
+                padding: '10px 20px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                fontFamily: 'DMM',
+                alignSelf: 'stretch',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px',
+                marginTop: 'auto', // Push the button to the bottom
+                fontSize:'2.1rem',
+                fontWeight:'800'
+              }}>
+                Do Payment <FaArrowRight />
+              </button>
+            )}
           </div>
         </div>
-      )}
-          </div>
-          </div>
-     
-    </div>
+      </div>
     </>
   );
-};
-
-const styles = {
-  container: {
-   
-  },
-  inputContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-    marginTop: '20px',
-  },
-  input: {
-    padding: '10px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',fontFamily:'DMM'
-  },
-  button: {
-    padding: '10px 20px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',fontFamily:'DMM'
-  },
 };
 
 export default Wallet;
