@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from '../assets/face.jpg';
-// s
-const FaceDetection = () => {
 
+const FaceDetection = () => {
   const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(true);
 
   useEffect(() => {
@@ -10,116 +9,119 @@ const FaceDetection = () => {
       setIsLeftSectionVisible(window.innerWidth > 615);
     };
 
-    // Add event listener for window resize
     window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
 
-    // Initial check on mount
-    handleResize();
-
-    // Remove event listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   const continueButtonStyle = {
-    borderRadius: '15px',
-    margin: '5px',
-    padding: '20px',
-    width: '30%',
+    borderRadius: '12px',
+    padding: '15px 30px',
     backgroundColor: '#4285F4',
     color: 'white',
-    fontFamily: 'DMM',
+    fontFamily: 'DM Sans, sans-serif',
+    fontSize: '16px',
+    fontWeight: 600,
     border: 'none',
-    fontSize: '15px',
     cursor: 'pointer',
-    marginBottom: '20px',
+    marginTop: '30%',
+    alignSelf: 'center',
+    transition: 'background 0.3s ease',
   };
 
   const styles = {
     container: {
       display: 'flex',
+      flexDirection: 'row',
       height: '100vh',
-    },
-    leftSectionHidden: {
-      display: isLeftSectionVisible ? 'flex' : 'none',
+      width: '100%',
     },
     leftSection: {
+      flex: '0 0 60vw',
       background: `
         repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(242, 242, 242, 0.3) 50px, rgba(242, 242, 242, 0.3) 51px),
         repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(242, 242, 242, 0.3) 50px, rgba(242, 242, 242, 0.3) 51px),
         #5813EA`,
-      flex: '0 0 60vw',
-      backgroundColor: '#5813EA',
-      color: 'white',
-      fontWeight: 800,
-      textAlign: 'center',
-      justifyContent: 'center',
-      alignItems: 'center',
-      
-      fontSize: 150,
-      fontFamily: 'DMM',
       display: isLeftSectionVisible ? 'flex' : 'none',
-
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     rightSection: {
-        flex: isLeftSectionVisible ? '0 0 40vw' : '0 0 100vw', // Adjust flex based on visibility
-        display: 'flex',
-      backgroundColor: '#EEF4FE',
+      flex: isLeftSectionVisible ? '0 0 40vw' : '1',
+      display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: '#EEF4FE',
     },
     formContainer: {
       height: '80vh',
-      width: '100%',
+      width: '90%',
+      maxWidth: '450px',
       backgroundColor: 'white',
-      margin: 30,
+      borderRadius: '20px',
+      padding: '30px',
+      boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'flex-start',
-      borderRadius: 20,
+      justifyContent: 'flex-start',
     },
     loginTitle: {
-      marginLeft: 30,
-      marginTop: 20,
-      marginBottom: 10,
       color: '#1E1E1E',
-      fontFamily: 'DMM',
-      fontSize: 30,
-      fontWeight: 600,
+      fontFamily: 'DM Sans, sans-serif',
+      fontSize: '28px',
+      fontWeight: 700,
+      marginBottom: '10px',
     },
     loginSubtitle: {
-      marginLeft: 30,
       color: '#7D716A',
-      fontFamily: 'DMM',
-      fontSize: 20,
+      fontFamily: 'DM Sans, sans-serif',
+      fontSize: '18px',
+      marginBottom: '25px',
+    },
+    noteText: {
+      color: 'red',
+      fontSize: '16px',
+      lineHeight: 1.6,
+      fontFamily: 'DM Sans, sans-serif',
+      textAlign: 'left',
+      backgroundColor: '#fff5f5',
+      padding: '12px',
+      borderRadius: '8px',
     },
   };
 
   return (
     <div style={styles.container}>
+      {/* Left Image Section */}
       <div style={styles.leftSection}>
         <img
           src={Image}
-          alt="Logo"
-          style={{ height: '400px', width: '550px', borderRadius: '10%', boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.4)', }}
+          alt="Face"
+          style={{
+            height: '400px',
+            width: '550px',
+            borderRadius: '10%',
+            boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.3)',
+            objectFit: 'cover',
+          }}
         />
       </div>
 
+      {/* Right Content Section */}
       <div style={styles.rightSection}>
         <div style={styles.formContainer}>
           <div style={styles.loginTitle}>FACE DETECTION</div>
-          <div style={styles.loginSubtitle}>Please Click on Continue Button :)</div>
+          <div style={styles.loginSubtitle}>Please click on the continue button :)</div>
 
-          <div style={{ marginLeft: '5%', marginTop: '10%', marginRight: '5%' }}>
-            <p style={{ color: 'red', textAlign: 'left', fontSize: '18px', lineHeight: 1.5 }}>
-              *Please make sure that you give correct credentials for registering as a Teacher. Also, anyone cannot
-              login from your account. Thanks !!
-            </p>
+          <div style={styles.noteText}>
+            * Please make sure that you give correct credentials for registering as a Teacher.
+            Also, anyone cannot login from your account. Thanks!
           </div>
 
-          {/* Continue Button */}
-          <div style={{ ...continueButtonStyle, alignSelf: 'center', marginTop: '30%' }}>Continue</div>
+          <button style={continueButtonStyle}>Continue</button>
         </div>
       </div>
     </div>
